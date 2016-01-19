@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "minicosmetic/DetailVC.swift"
-            timestampString = "474746407.44023"
+            timestampString = "474856478.11859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "touchSell(_:)"
             landmarkType = "5">
          </BreakpointContent>

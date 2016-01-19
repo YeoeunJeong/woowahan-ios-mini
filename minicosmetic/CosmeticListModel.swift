@@ -13,6 +13,10 @@ class CosmeticListModel: NSObject {
     var id:Int?
     var cosmeticName:String?
     var cosmeticId:Int?
+    var cosmeticGender:Int?
+    var cosmeticUse:Int?
     var stockVolume:Int?
     var salesVolume:Int?
+    var orderVolume:Int?
+    var soldOut:Bool?
 }

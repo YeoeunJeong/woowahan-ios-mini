@@ -17,6 +17,7 @@ class DetailVC: UIViewController {
     var cosmeticPrice: Int?
     var cosmeticSales: Int?
     var cosmeticStock: Int?
+    var salesStockId: Int?
     var delegate:MainVCDelegate?
     
     @IBOutlet weak var cosName: UILabel!
@@ -65,13 +66,12 @@ class DetailVC: UIViewController {
                 // array 형태가 아니기 때문에 모델 만들어서 for문 돌릴 필요 X
                 if let cosmetic = JSON as? NSDictionary {
                     self.cosmeticPrice = cosmetic["price"] as? Int
+                    
                     print(self.cosmeticPrice)
                     self.cosmeticPriceLabel.text = String(self.cosmeticPrice!)
                 }
             }
-        }
-        self.cosmeticPriceLabel.text = String(self.cosmeticPrice)
-        
+        }        
     }
  
     @IBAction func touch1(sender: AnyObject) { //1
@@ -90,6 +90,20 @@ class DetailVC: UIViewController {
     
     @IBAction func touchSell(sender: AnyObject) {
         self.delegate?.refreshData!()
+        
+        let parameters = ["sales_volume" : salesNumEdit.text!]
+        let putVolumeURL = "http://ye-project.dev/shops/4/sales_stocks/\(self.salesStockId!).json"
+        
+        Alamofire.request(.PUT, putVolumeURL, parameters: parameters, encoding:.JSON)
+            .responseJSON {
+                response in
+                
+                print("--request  : \(response.request)")  // original URL request
+                print("--response : \(response.response)") // URL response
+                // print("--data     : \(response.data)")     // server data
+                print("--result   : \(response.result)")   // result of response serialization
+        }
+
         // navigationController?.popViewControllerAnimated(true) // pop
         navigationController?.popToRootViewControllerAnimated(true) // popToRoot
     }
@@ -97,20 +111,19 @@ class DetailVC: UIViewController {
     @IBAction func touchStock(sender: AnyObject) {
         self.delegate?.refreshData!()
         
-//        let parameters = ["stock_volume" : "12", "sales_volume" : "12", "order_volume" : "12"]
-//        let putVolumeURL = "http://ye-project.dev/shops/4/sales_stocks/3.json"
-//
-//        Alamofire.request(.PUT, putVolumeURL, parameters: parameters, encoding:.JSON)
-//            .responseJSON {
-//            response in
-//            
-//            print("--request  : \(response.request)")  // original URL request
-//            print("--response : \(response.response)") // URL response
-//            // print("--data     : \(response.data)")     // server data
-//            print("--result   : \(response.result)")   // result of response serialization
-//        }
-         navigationController?.popToRootViewControllerAnimated(true) // popToRoot
+        let parameters = ["order_volume" : stockNumEdit.text!]
+        let putVolumeURL = "http://ye-project.dev/shops/4/sales_stocks/\(self.salesStockId!).json"
 
+        Alamofire.request(.PUT, putVolumeURL, parameters: parameters, encoding:.JSON)
+            .responseJSON {
+            response in
+            
+            print("--request  : \(response.request)")  // original URL request
+            print("--response : \(response.response)") // URL response
+            // print("--data     : \(response.data)")     // server data
+            print("--result   : \(response.result)")   // result of response serialization
+        }
+         navigationController?.popToRootViewControllerAnimated(true) // popToRoot
     }
     
     
